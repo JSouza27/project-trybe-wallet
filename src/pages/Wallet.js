@@ -8,7 +8,7 @@ class Wallet extends Component {
       <label htmlFor="value">
         Valor
         <input
-          name="value"
+          id="value"
           type="text"
           onChange={ () => {} }
         />
@@ -21,7 +21,7 @@ class Wallet extends Component {
       <label htmlFor="description">
         Descrição
         <input
-          name="description"
+          id="description"
           type="text"
           maxLength="200"
           onChange={ () => {} }
