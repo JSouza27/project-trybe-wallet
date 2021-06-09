@@ -10,8 +10,8 @@ class Login extends React.Component {
     super(props);
 
     this.state = {
-      userEmail: '',
-      userPassword: '',
+      userEmail: 'jonathan@trybe.com',
+      userPassword: 'ergo9080',
       errors: {},
       btnDisable: true,
       login: false,
@@ -69,6 +69,7 @@ class Login extends React.Component {
             type="email"
             placeholder="email"
             onChange={ this.handleChange }
+            value={ userEmail }
           />
           {errors.errorEmail && <span>{errors.errorEmail}</span>}
         </label>
@@ -80,6 +81,7 @@ class Login extends React.Component {
             type="password"
             placeholder="senha"
             onChange={ this.handleChange }
+            value={ userPassword }
           />
           {errors.errorPassword && <span>{errors.errorPassword}</span>}
         </label>
