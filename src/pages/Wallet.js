@@ -4,7 +4,6 @@ import { connect } from 'react-redux';
 import { getInfoApi } from '../actions/walletAction';
 
 import Header from '../components/Header';
-// import fecthURL from '../service/ economyApi';
 
 class Wallet extends Component {
   componentDidMount() {
@@ -111,7 +110,6 @@ const mapDispatchToProps = (dispatch) => ({
 });
 
 Wallet.propTypes = {
- 
   fetchApiThunk: PropTypes.func.isRequired,
   coins: PropTypes.arrayOf(PropTypes.string).isRequired,
 };
