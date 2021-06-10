@@ -120,8 +120,8 @@ describe('6 - Desenvolva um formulário para adicionar uma despesa contendo as s
   });
 });
 
-describe('7 - Implemente a lógica para preencher as opções do campo "Moedas", buscando as siglas das moedas da API', () => {
-  test.skip('Um campo para selecionar em qual moeda será registrada a despesa', async () => {
+describe.only('7 - Implemente a lógica para preencher as opções do campo "Moedas", buscando as siglas das moedas da API', () => {
+  test('Um campo para selecionar em qual moeda será registrada a despesa', async () => {
     renderWithRouterAndStore(<Wallet />, '/carteira');
     const currencyInput = await screen.findByRole('combobox', {
       name: /moeda/i,

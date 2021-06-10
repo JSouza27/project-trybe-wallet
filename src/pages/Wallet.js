@@ -1,8 +1,15 @@
 import React, { Component } from 'react';
 import PropTypes from 'prop-types';
 import { connect } from 'react-redux';
+import { getInfoApi } from '../actions/walletAction';
+// import fecthURL from '../service/ economyApi';
 
 class Wallet extends Component {
+  componentDidMount() {
+    const { fetchApiThunk } = this.props;
+    fetchApiThunk();
+  }
+
   fieldValue() {
     return (
       <label htmlFor="value">
@@ -31,11 +38,18 @@ class Wallet extends Component {
   }
 
   fieldCoin() {
+    const { coins } = this.props;
+    const arrCoins = Object.keys(coins).filter((coin) => coin !== 'USDT');
+
     return (
       <label htmlFor="coin">
         Moeda
         <select id="coin">
-          <option>aguardando API</option>
+          {
+            arrCoins.map((item, index) => (
+              <option key={ index } value={ item }>{item}</option>
+            ))
+          }
         </select>
       </label>
     );
@@ -90,12 +104,19 @@ class Wallet extends Component {
   }
 }
 
-const mapStateToProps = ({ user: { email } }) => ({
+const mapStateToProps = ({ user: { email }, wallet: { coins } }) => ({
   email,
+  coins,
+});
+
+const mapDispatchToProps = (dispatch) => ({
+  fetchApiThunk: () => dispatch(getInfoApi()),
 });
 
 Wallet.propTypes = {
   email: PropTypes.string.isRequired,
+  fetchApiThunk: PropTypes.func.isRequired,
+  coins: PropTypes.arrayOf(PropTypes.string).isRequired,
 };
 
-export default connect(mapStateToProps)(Wallet);
+export default connect(mapStateToProps, mapDispatchToProps)(Wallet);

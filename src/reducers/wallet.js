@@ -1,9 +1,16 @@
-const INITIAL_WALLET = {};
+import { SAVE_COIN } from '../actions';
+
+const INITIAL_WALLET = {
+  coins: [],
+};
 
 const wallet = (state = INITIAL_WALLET, action) => {
   switch (action.type) {
-  case '':
-    return state;
+  case SAVE_COIN:
+    return {
+      ...state,
+      coins: action.payload,
+    };
 
   default:
     return state;
