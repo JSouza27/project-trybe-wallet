@@ -6,6 +6,4 @@ const fecthEconomyApi = async () => {
   return result;
 };
 
-const infoApi = fecthEconomyApi();
-
-export default infoApi;
+export default fecthEconomyApi;

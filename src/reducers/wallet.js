@@ -1,7 +1,7 @@
 import { SAVE_COIN } from '../actions';
 
 const INITIAL_WALLET = {
-  coins: [],
+  coins: {},
 };
 
 const wallet = (state = INITIAL_WALLET, action) => {

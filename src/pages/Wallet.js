@@ -2,6 +2,8 @@ import React, { Component } from 'react';
 import PropTypes from 'prop-types';
 import { connect } from 'react-redux';
 import { getInfoApi } from '../actions/walletAction';
+
+import Header from '../components/Header';
 // import fecthURL from '../service/ economyApi';
 
 class Wallet extends Component {
@@ -84,14 +86,9 @@ class Wallet extends Component {
   }
 
   render() {
-    const { email } = this.props;
     return (
       <section>
-        <header>
-          <span data-testid="email-field">{email}</span>
-          <span data-testid="total-field">0</span>
-          <span data-testid="header-currency-field">BRL</span>
-        </header>
+        <Header />
         <form>
           {this.fieldValue()}
           {this.fieldDescription()}
@@ -114,7 +111,7 @@ const mapDispatchToProps = (dispatch) => ({
 });
 
 Wallet.propTypes = {
-  email: PropTypes.string.isRequired,
+ 
   fetchApiThunk: PropTypes.func.isRequired,
   coins: PropTypes.arrayOf(PropTypes.string).isRequired,
 };
