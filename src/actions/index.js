@@ -2,6 +2,6 @@ export const SET_EMAIL = 'SET_EMAIL';
 
 export const SET_PASSWORD = 'SET_PASSWORD';
 
-export const SAVE_COIN = 'SAVE_COIN';
+export const SAVE_CURRENCIES = 'SAVE_CURRENCIES';
 
-export const REQUEST = 'REQUEST';
+export const SAVE_EXPENSES = 'SAVE_EXPENSES';
