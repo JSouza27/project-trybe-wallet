@@ -1,5 +1,5 @@
 import fecthEconomyApi from '../service/ economyApi';
-import { SAVE_CURRENCIES, SAVE_EXPENSES } from '.';
+import { DELETE_EXPENSES, SAVE_CURRENCIES, SAVE_EXPENSES } from '.';
 
 export const saveCoins = (api) => ({
   type: SAVE_CURRENCIES,
@@ -9,6 +9,11 @@ export const saveCoins = (api) => ({
 export const saveExpenses = (obj) => ({
   type: SAVE_EXPENSES,
   payload: obj,
+});
+
+export const deleteExpenses = (newExpenses) => ({
+  type: DELETE_EXPENSES,
+  payload: newExpenses,
 });
 
 export const getInfoApi = () => async (dispatch) => {

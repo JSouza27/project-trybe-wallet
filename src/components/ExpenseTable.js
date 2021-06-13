@@ -2,7 +2,15 @@ import React, { Component } from 'react';
 import { connect } from 'react-redux';
 import PropTypes from 'prop-types';
 
+import ButtonDelete from './ButtonDelete';
+
 class ExpenseTable extends Component {
+  constructor() {
+    super();
+
+    this.convertedValue = this.convertedValue.bind(this);
+  }
+
   convertedValue(value, exchangeRates) {
     const converted = value * exchangeRates;
     return parseFloat(converted.toFixed(2));
@@ -11,7 +19,7 @@ class ExpenseTable extends Component {
   tExpenses() {
     const { expenses } = this.props;
     const row = expenses.map((expense, index) => {
-      const { description, tag, method, value, currency,
+      const { id, description, tag, method, value, currency,
         exchangeRates: { [currency]: { name, ask } } } = expense;
 
       return (
@@ -28,6 +36,9 @@ class ExpenseTable extends Component {
             }
           </td>
           <td>Real</td>
+          <div>
+            <ButtonDelete Id={ id } />
+          </div>
         </tr>
       );
     });
