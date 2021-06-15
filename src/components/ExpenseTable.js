@@ -3,6 +3,7 @@ import { connect } from 'react-redux';
 import PropTypes from 'prop-types';
 
 import ButtonDelete from './ButtonDelete';
+import ButtonEdit from './ButtonEdit';
 
 class ExpenseTable extends Component {
   constructor() {
@@ -13,7 +14,7 @@ class ExpenseTable extends Component {
 
   convertedValue(value, exchangeRates) {
     const converted = value * exchangeRates;
-    return parseFloat(converted.toFixed(2));
+    return parseFloat(converted).toFixed(2);
   }
 
   tExpenses() {
@@ -37,6 +38,7 @@ class ExpenseTable extends Component {
           </td>
           <td>Real</td>
           <div>
+            <ButtonEdit Id={ id } />
             <ButtonDelete Id={ id } />
           </div>
         </tr>
