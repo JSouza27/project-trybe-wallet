@@ -1,4 +1,4 @@
-import { SET_EMAIL, SET_PASSWORD } from '.';
+import { SET_EMAIL, SET_PASSWORD, SET_NAME } from '.';
 
 export const setEmailAction = (email) => ({
   type: SET_EMAIL,
@@ -8,4 +8,9 @@ export const setEmailAction = (email) => ({
 export const setPasswordAction = (password) => ({
   type: SET_PASSWORD,
   payload: { password },
+});
+
+export const setNameAction = (name) => ({
+  type: SET_NAME,
+  payload: { name },
 });

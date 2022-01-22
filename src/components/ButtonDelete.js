@@ -3,6 +3,7 @@ import { connect } from 'react-redux';
 import PropTypes from 'prop-types';
 
 import { deleteExpenses } from '../actions/walletAction';
+import Button from '../css/ButtonDelete_Style';
 
 class ButtonDelete extends Component {
   constructor() {
@@ -19,13 +20,13 @@ class ButtonDelete extends Component {
 
   render() {
     return (
-      <button
+      <Button
         data-testid="delete-btn"
         type="button"
         onClick={ () => { this.deleteCost(); } }
       >
         Delete
-      </button>
+      </Button>
     );
   }
 }

@@ -2,6 +2,14 @@ import React, { Component } from 'react';
 import { connect } from 'react-redux';
 import PropTypes from 'prop-types';
 
+import {
+  HeaderContainer,
+  Email,
+  Expenses,
+  BalanceTitle,
+  ExpenseContainer,
+} from '../css/Header_Style';
+
 class Header extends Component {
   totalCost(expenses) {
     const total = expenses.reduce((acc, { exchangeRates, currency, value }) => {
@@ -15,11 +23,16 @@ class Header extends Component {
   render() {
     const { email, expenses } = this.props;
     return (
-      <header>
-        <span data-testid="email-field">{email}</span>
-        <span data-testid="total-field">{this.totalCost(expenses)}</span>
-        <span data-testid="header-currency-field">BRL</span>
-      </header>
+      <HeaderContainer>
+        <Email data-testid="email-field">{email}</Email>
+        <ExpenseContainer>
+          <BalanceTitle>BALANÇO TOTAL</BalanceTitle>
+          <Expenses>
+            <span data-testid="total-field">{this.totalCost(expenses)}</span>
+            <span data-testid="header-currency-field">BRL</span>
+          </Expenses>
+        </ExpenseContainer>
+      </HeaderContainer>
     );
   }
 }

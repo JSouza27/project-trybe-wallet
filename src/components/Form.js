@@ -3,6 +3,11 @@ import PropTypes from 'prop-types';
 import { connect } from 'react-redux';
 
 import {
+  FieldContainer,
+  FormWallet,
+} from '../css/Form_Style';
+
+import {
   getInfoApi,
   saveEdit,
   stateDispatch,
@@ -26,6 +31,7 @@ class Form extends Component {
 
     this.saveExpenses = this.saveExpenses.bind(this);
     this.defautState = this.defautState.bind(this);
+    this.edit = this.edit.bind(this);
   }
 
   componentDidMount() {
@@ -34,8 +40,11 @@ class Form extends Component {
   }
 
   componentDidUpdate(prevProps) {
-    const { enableEdit, edit } = this.props;
+    this.edit(prevProps);
+  }
 
+  edit(prevProps) {
+    const { enableEdit, edit } = this.props;
     if (enableEdit !== prevProps.enableEdit) {
       this.setState(edit);
     }
@@ -50,35 +59,41 @@ class Form extends Component {
   fieldValue() {
     const { value } = this.state;
     return (
-      <label htmlFor="value">
-        Valor
-        <input
-          data-testid="value-input"
-          id="value"
-          name="value"
-          type="text"
-          value={ value }
-          onChange={ (e) => { this.handleChange(e); } }
-        />
-      </label>
+      <FieldContainer>
+        <label htmlFor="value" className="label">
+          Valor
+          <input
+            data-testid="value-input"
+            className="input"
+            id="value"
+            name="value"
+            type="text"
+            value={ value }
+            onChange={ (e) => { this.handleChange(e); } }
+          />
+        </label>
+      </FieldContainer>
     );
   }
 
   fieldDescription() {
     const { description } = this.state;
     return (
-      <label htmlFor="description">
-        Descrição
-        <input
-          data-testid="description-input"
-          id="description"
-          name="description"
-          type="text"
-          value={ description }
-          maxLength="200"
-          onChange={ (e) => { this.handleChange(e); } }
-        />
-      </label>
+      <FieldContainer>
+        <label htmlFor="description" className="label">
+          Descrição
+          <input
+            data-testid="description-input"
+            className="input"
+            id="description"
+            name="description"
+            type="text"
+            value={ description }
+            maxLength="200"
+            onChange={ (e) => { this.handleChange(e); } }
+          />
+        </label>
+      </FieldContainer>
     );
   }
 
@@ -86,66 +101,75 @@ class Form extends Component {
     const { currencies } = this.props;
     const { currency } = this.state;
     const coins = currencies;
-
+    console.log(coins[0]);
     return (
-      <label htmlFor="coin">
-        Moeda
-        <select
-          data-testid="currency-input"
-          id="coin"
-          name="currency"
-          value={ currency }
-          onChange={ (e) => { this.handleChange(e); } }
-        >
-          {
-            coins.map((item, index) => (
-              <option key={ index } value={ item }>{item}</option>
-            ))
-          }
-        </select>
-      </label>
+      <FieldContainer>
+        <label htmlFor="coin" className="label">
+          Moeda
+          <select
+            data-testid="currency-input"
+            className="input"
+            id="coin"
+            name="currency"
+            value={ currency }
+            onChange={ (e) => { this.handleChange(e); } }
+          >
+            {
+              coins.map((item, index) => (
+                <option key={ index } value={ item }>{item}</option>
+              ))
+            }
+          </select>
+        </label>
+      </FieldContainer>
     );
   }
 
   fieldPaymentMethod() {
     const { method } = this.state;
     return (
-      <label htmlFor="payment_method">
-        Método de pagamento
-        <select
-          data-testid="method-input"
-          id="payment_method"
-          name="method"
-          value={ method }
-          onChange={ (e) => { this.handleChange(e); } }
-        >
-          <option value="Dinheiro">Dinheiro</option>
-          <option value="Cartão de crédito">Cartão de crédito</option>
-          <option value="Cartão de débito">Cartão de débito</option>
-        </select>
-      </label>
+      <FieldContainer>
+        <label htmlFor="payment_method" className="label">
+          Método de pagamento
+          <select
+            data-testid="method-input"
+            className="input"
+            id="payment_method"
+            name="method"
+            value={ method }
+            onChange={ (e) => { this.handleChange(e); } }
+          >
+            <option value="Dinheiro">Dinheiro</option>
+            <option value="Cartão de crédito">Cartão de crédito</option>
+            <option value="Cartão de débito">Cartão de débito</option>
+          </select>
+        </label>
+      </FieldContainer>
     );
   }
 
   fieldTag() {
     const { tag } = this.state;
     return (
-      <label htmlFor="tag">
-        Tag
-        <select
-          data-testid="tag-input"
-          id="tag"
-          name="tag"
-          value={ tag }
-          onChange={ (e) => { this.handleChange(e); } }
-        >
-          <option value="Alimentação">Alimentação</option>
-          <option value="Lazer">Lazer</option>
-          <option value="Trabalho">Trabalho</option>
-          <option value="Transporte">Transporte</option>
-          <option value="Saúde">Saúde</option>
-        </select>
-      </label>
+      <FieldContainer>
+        <label htmlFor="tag" className="label">
+          Tag
+          <select
+            data-testid="tag-input"
+            className="input"
+            id="tag"
+            name="tag"
+            value={ tag }
+            onChange={ (e) => { this.handleChange(e); } }
+          >
+            <option value="Alimentação">Alimentação</option>
+            <option value="Lazer">Lazer</option>
+            <option value="Trabalho">Trabalho</option>
+            <option value="Transporte">Transporte</option>
+            <option value="Saúde">Saúde</option>
+          </select>
+        </label>
+      </FieldContainer>
     );
   }
 
@@ -170,9 +194,9 @@ class Form extends Component {
   render() {
     const { enableEdit } = this.props;
     return (
-      <form>
-        {this.fieldValue()}
+      <FormWallet>
         {this.fieldDescription()}
+        {this.fieldValue()}
         {this.fieldCoin()}
         {this.fieldPaymentMethod()}
         {this.fieldTag()}
@@ -181,7 +205,7 @@ class Form extends Component {
             ? <ButtonEditExpense defautState={ this.defautState } state={ this.state } />
             : <ButtonAdd saveExpenses={ this.saveExpenses } />
         }
-      </form>
+      </FormWallet>
     );
   }
 }

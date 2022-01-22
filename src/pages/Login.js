@@ -3,16 +3,28 @@ import { connect } from 'react-redux';
 import { Redirect } from 'react-router';
 import PropTypes from 'prop-types';
 
-import { setEmailAction, setPasswordAction } from '../actions/userAction';
+import { setEmailAction, setNameAction, setPasswordAction } from '../actions/userAction';
+import {
+  App,
+  Button,
+  FormContent,
+  FormLogin,
+  ImageLogo,
+  InfoFields,
+  InputContainer,
+  SignIn,
+} from '../css/login_style';
+import logo from '../wallet-logo.svg';
 
 class Login extends React.Component {
   constructor(props) {
     super(props);
 
     this.state = {
-      userEmail: 'jonathan@trybe.com',
-      userPassword: 'ergo9080',
-      errors: {},
+      userEmail: '',
+      userPassword: '',
+      userName: '',
+      error: false,
       btnDisable: true,
       login: false,
     };
@@ -20,6 +32,10 @@ class Login extends React.Component {
     this.validate = this.validate.bind(this);
     this.handleChange = this.handleChange.bind(this);
     this.redirect = this.redirect.bind(this);
+    this.nameInfo = this.nameInfo.bind(this);
+    this.emailInfo = this.emailInfo.bind(this);
+    this.passwordInfo = this.passwordInfo.bind(this);
+    this.signIn = this.signIn.bind(this);
   }
 
   handleChange({ target: { name, value } }) {
@@ -30,73 +46,157 @@ class Login extends React.Component {
     });
   }
 
+  signIn(state) {
+    const { setUserEmail, setUserPassword, setUserName } = this.props;
+
+    if (this.validate(state)) {
+      if (state.userName.length <= 0) {
+        return this.setState({ userName: 'Humano' });
+      }
+
+      setUserEmail(state.userEmail);
+      setUserPassword(state.userPassword);
+      setUserName(state.userName);
+      this.redirect();
+    }
+  }
+
   validate(state) {
-    const errors = {};
     const lengthPassword = 6;
+    const { userEmail, userPassword } = state;
 
-    if (!/(\w+[0-9]*)+@\w+\.\w+/.test(state.userEmail)) {
-      errors.errorEmail = 'Por favor, insira um email válido';
-      return this.setState({ btnDisable: true, errors });
+    if (!/(\w+[0-9]*)+@\w+\.\w+/.test(state.userEmail) || userEmail === '') {
+      this.setState({ btnDisable: true, error: true });
+    } else {
+      this.setState({ error: false });
     }
 
-    if (state.userPassword.length < lengthPassword) {
-      errors.errorPassword = 'Por favor, insira uma senha acima 6 caracteres';
-      return this.setState({ btnDisable: true, errors });
+    if (userPassword.length < lengthPassword || userPassword === '') {
+      this.setState({ btnDisable: true, error: true });
+    } else {
+      this.setState({ error: false });
     }
 
-    return this.setState({ btnDisable: false, errors });
+    if (state.error === false) {
+      this.setState({ btnDisable: false });
+      return true;
+    }
   }
 
   redirect() {
     this.setState({ login: true });
   }
 
+  nameInfo() {
+    const { userName } = this.state;
+    const label = 'Active label';
+    let isActive = false;
+
+    if (userName !== '') {
+      isActive = true;
+    }
+    return (
+      <InfoFields className="form-group">
+        <label className={ isActive ? label : 'label' } htmlFor="userName">
+          <span className="span-title">Nome</span>
+          <input
+            className="input"
+            data-testid="name-input"
+            name="userName"
+            type="text"
+            onChange={ this.handleChange }
+            value={ userName }
+          />
+        </label>
+      </InfoFields>
+    );
+  }
+
+  emailInfo() {
+    const { userEmail } = this.state;
+    let isActive = false;
+
+    if (userEmail !== '') {
+      isActive = true;
+    }
+
+    return (
+      <InfoFields className="form-group">
+        <label className={ isActive ? 'label Active' : 'label' } htmlFor="userEmail">
+          <span className="span-title">
+            Email
+          </span>
+          <input
+            className="input"
+            data-testid="email-input"
+            name="userEmail"
+            type="email"
+            onChange={ this.handleChange }
+            value={ userEmail }
+          />
+        </label>
+      </InfoFields>
+    );
+  }
+
+  passwordInfo() {
+    const { userPassword } = this.state;
+
+    let isActive = false;
+
+    if (userPassword !== '') {
+      isActive = true;
+    }
+
+    return (
+      <InfoFields className="form-group">
+        <label className={ isActive ? 'label Active' : 'label' } htmlFor="userPassword">
+          <span className="span-title">
+            Senha
+          </span>
+          <input
+            className="input"
+            data-testid="password-input"
+            name="userPassword"
+            type="password"
+            onChange={ this.handleChange }
+            value={ userPassword }
+          />
+        </label>
+      </InfoFields>
+    );
+  }
+
   render() {
-    const { userEmail, userPassword, errors, btnDisable, login } = this.state;
-    const { setUserEmail, setUserPassword } = this.props;
+    const { btnDisable, login } = this.state;
 
     if (login) {
       return <Redirect to="/carteira" />;
     }
     return (
-      <section>
-        <div>Login</div>
-        <label htmlFor="userEmail">
-          Email
-          <input
-            data-testid="email-input"
-            name="userEmail"
-            type="email"
-            placeholder="email"
-            onChange={ this.handleChange }
-            value={ userEmail }
-          />
-          {errors.errorEmail && <span>{errors.errorEmail}</span>}
-        </label>
-        <label htmlFor="userPassword">
-          Senha
-          <input
-            data-testid="password-input"
-            name="userPassword"
-            type="password"
-            placeholder="senha"
-            onChange={ this.handleChange }
-            value={ userPassword }
-          />
-          {errors.errorPassword && <span>{errors.errorPassword}</span>}
-        </label>
-        <button
-          type="button"
-          onClick={ () => {
-            setUserEmail(userEmail);
-            setUserPassword(userPassword);
-            this.redirect();
-          } }
-          disabled={ btnDisable }
-        >
-          Entrar
-        </button>
-      </section>
+      <App className="App">
+        <FormLogin className="form-login">
+          <FormContent className="form-content">
+            <ImageLogo src={ logo } alt="logo-trybe-wallet" />
+            <SignIn>SING IN</SignIn>
+            <InputContainer>
+              {this.nameInfo()}
+              {this.emailInfo()}
+              {this.passwordInfo()}
+            </InputContainer>
+          </FormContent>
+          <Button
+            className={ btnDisable ? '' : 'btn-active' }
+            type="button"
+            onClick={ () => {
+              this.signIn(this.state);
+            } }
+            disabled={ btnDisable }
+          >
+            ENTRAR
+          </Button>
+        </FormLogin>
+      </App>
     );
   }
 }
@@ -104,11 +204,13 @@ class Login extends React.Component {
 const mapDispatchToProps = (dispatch) => ({
   setUserEmail: (userEmail) => dispatch(setEmailAction(userEmail)),
   setUserPassword: (userPassword) => dispatch(setPasswordAction(userPassword)),
+  setUserName: (userName) => dispatch(setNameAction(userName)),
 });
 
 Login.propTypes = {
   setUserEmail: PropTypes.func.isRequired,
   setUserPassword: PropTypes.func.isRequired,
+  setUserName: PropTypes.func.isRequired,
 };
 
 export default connect(null, mapDispatchToProps)(Login);

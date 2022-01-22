@@ -2,6 +2,7 @@ import React, { Component } from 'react';
 import PropTypes from 'prop-types';
 import { connect } from 'react-redux';
 import { saveEdit } from '../actions/walletAction';
+import { SaveButton } from '../css/Form_Style';
 
 class ButtonEditExpense extends Component {
   saveEdited() {
@@ -24,7 +25,7 @@ class ButtonEditExpense extends Component {
   render() {
     const { defautState } = this.props;
     return (
-      <button
+      <SaveButton
         type="button"
         onClick={ () => {
           this.saveEdited();
@@ -32,7 +33,7 @@ class ButtonEditExpense extends Component {
         } }
       >
         Editar despesa
-      </button>
+      </SaveButton>
     );
   }
 }

@@ -4,6 +4,7 @@ import PropTypes from 'prop-types';
 
 import ButtonDelete from './ButtonDelete';
 import ButtonEdit from './ButtonEdit';
+import { ButtonContainer, Row, TableContent } from '../css/ExpenseTable_Style';
 
 class ExpenseTable extends Component {
   constructor() {
@@ -24,24 +25,44 @@ class ExpenseTable extends Component {
         exchangeRates: { [currency]: { name, ask } } } = expense;
 
       return (
-        <tr key={ index }>
-          <td>{description}</td>
-          <td>{tag}</td>
-          <td>{method}</td>
-          <td>{value}</td>
-          <td>{name.replace('/Real Brasileiro', '')}</td>
-          <td>{this.convertedValue(1, ask)}</td>
-          <td>
-            {
-              this.convertedValue(value, ask)
-            }
-          </td>
-          <td>Real</td>
-          <div>
-            <ButtonEdit Id={ id } />
-            <ButtonDelete Id={ id } />
-          </div>
-        </tr>
+        <Row key={ index }>
+          <tr>
+            <th>Descrição</th>
+            <td>{description}</td>
+          </tr>
+          <tr>
+            <th>Tag</th>
+            <td>{tag}</td>
+          </tr>
+          <tr>
+            <th>Método de pagamento</th>
+            <td>{method}</td>
+          </tr>
+          <tr>
+            <th>Valor</th>
+            <td>{value}</td>
+          </tr>
+          <tr>
+            <th>Moeda</th>
+            <td>{name.replace('/Real Brasileiro', '')}</td>
+          </tr>
+          <tr>
+            <th>Valor convertido</th>
+            <td>{this.convertedValue(1, ask)}</td>
+          </tr>
+          <tr>
+            <th>Moeda de conversão</th>
+            <td>{this.convertedValue(value, ask)}</td>
+            <td>Real</td>
+          </tr>
+          <tr>
+            <th>Editar/Excluir</th>
+            <ButtonContainer>
+              <ButtonEdit Id={ id } />
+              <ButtonDelete Id={ id } />
+            </ButtonContainer>
+          </tr>
+        </Row>
       );
     });
 
@@ -50,7 +71,7 @@ class ExpenseTable extends Component {
 
   render() {
     return (
-      <section>
+      <TableContent>
         <table>
           <thead>
             <tr>
@@ -71,7 +92,7 @@ class ExpenseTable extends Component {
             }
           </tbody>
         </table>
-      </section>
+      </TableContent>
     );
   }
 }

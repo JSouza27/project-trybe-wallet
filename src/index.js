@@ -7,10 +7,12 @@ import './index.css';
 import App from './App';
 import * as serviceWorker from './serviceWorker';
 import store from './store/store';
+import GlobalStyle from './css/GlobalStyle';
 
 ReactDOM.render(
   <BrowserRouter>
     <Provider store={ store }>
+      <GlobalStyle />
       <App />
     </Provider>
   </BrowserRouter>,

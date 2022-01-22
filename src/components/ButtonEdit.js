@@ -3,6 +3,7 @@ import { connect } from 'react-redux';
 import PropTypes from 'prop-types';
 
 import { enableEdit } from '../actions/walletAction';
+import Button from '../css/ButtonEdit_Style';
 
 class ButtonEdit extends Component {
   editInfo() {
@@ -13,7 +14,7 @@ class ButtonEdit extends Component {
 
   render() {
     return (
-      <button
+      <Button
         data-testid="edit-btn"
         type="button"
         onClick={ (e) => {
@@ -22,7 +23,7 @@ class ButtonEdit extends Component {
         } }
       >
         Editar
-      </button>
+      </Button>
     );
   }
 }

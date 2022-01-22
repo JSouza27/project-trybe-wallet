@@ -1,8 +1,9 @@
-import { SET_EMAIL, SET_PASSWORD } from '../actions';
+import { SET_EMAIL, SET_PASSWORD, SET_NAME } from '../actions';
 
 const INITIAL_USER = {
   email: '',
   password: '',
+  name: '',
 };
 
 const user = (state = INITIAL_USER, { type, payload }) => {
@@ -12,6 +13,9 @@ const user = (state = INITIAL_USER, { type, payload }) => {
 
   case SET_PASSWORD:
     return { ...state, password: payload.password };
+
+  case SET_NAME:
+    return { ...state, name: payload.name };
 
   default:
     return state;

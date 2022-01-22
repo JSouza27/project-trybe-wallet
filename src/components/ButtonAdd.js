@@ -1,16 +1,17 @@
 import React, { Component } from 'react';
 import PropTypes from 'prop-types';
+import { SaveButton } from '../css/Form_Style';
 
 class ButtonAdd extends Component {
   render() {
     const { saveExpenses } = this.props;
     return (
-      <button
+      <SaveButton
         type="button"
         onClick={ saveExpenses }
       >
         Adicionar despesa
-      </button>
+      </SaveButton>
     );
   }
 }
